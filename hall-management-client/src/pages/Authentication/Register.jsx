@@ -1,12 +1,34 @@
 import Lottie from 'lottie-react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import animation from '../../assets/animation/register.json';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Register = () => {
-    // const {createUser, setUser} = useContext(AuthContext);
+    const {RegisterWithGoogle, setUser, createUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
+
+
+    
+   
+
+    const handleGoogle = () =>{
+        RegisterWithGoogle()
+        .then(result =>{
+            const user = result.user;
+           setUser(user);
+           navigate('/');
+           
+        })
+        .catch(error =>{
+           
+               
+             console.log(error)
+             
+         })
+    }
+
     
     const handleSignUp = (event) => {
         event.preventDefault();
@@ -23,7 +45,21 @@ const Register = () => {
         }
         
         const passwordRegex = /^(?=.*\d)[A-Za-z\d@$!%*?&]{6,}$/;
-        // Commented authentication code...
+        if (!passwordRegex.test(password)) {
+            setErrorMessage("Password must be at least 6 characters long and contain at least one number");
+            return;
+        }
+
+        createUser(email, password)
+        .then(result =>{
+            const user = result.user;
+            setUser(user);
+            console.log(user);
+            navigate('/');
+        })
+        .catch(error =>{
+            console.log(error);
+        })
     }
 
     return (
@@ -105,13 +141,22 @@ const Register = () => {
                                 Password
                             </label>
                         </div>
-                        <div className="my-6">
+                        <div className="my-6 space-y-4">
                             <button
                                 type="submit"
                                 className="w-full font-bold rounded-md bg-[#384959] px-3 py-4 text-white focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity"
                             >
-                                Sign Up
+                                Register
                             </button>
+                            <button onClick={handleGoogle} className="w-full font-bold rounded-md flex gap-3 justify-center items-center bg-[#f0f4f7] px-3 py-4  focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity">
+        <img
+            className="w-6 h-6"
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            loading="lazy"
+            alt="Google logo"
+        />
+        <span>Login with Google</span>
+    </button>
                         </div>
                         <p className="text-center text-sm text-gray-500">
                             Already have an account?{' '}
