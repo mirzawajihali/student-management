@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 import SocialLogin from './SocialLogin';
 
@@ -9,6 +9,9 @@ const Login = () => {
     const {loginUser, setUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage]= useState(null);
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log(location)
+    const from = location?.state?.from?.pathname || '/';
 
     const handleLogin= (e) =>
          {
@@ -24,7 +27,7 @@ const Login = () => {
                     console.log(result.user)
                     const lastSignInTime = result.user?.metadata?.lastSignInTime
                     const loginInfo ={email, lastSignInTime}
-                    navigate(location?.state ? location.state : '/' );
+                    navigate(from );
                     // fetch(`https://coffee-store-server-one-rho.vercel.app/users`, {
                     //     method : 'PATCH'  ,
                     //     headers :{

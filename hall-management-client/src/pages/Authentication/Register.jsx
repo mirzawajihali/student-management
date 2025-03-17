@@ -1,13 +1,17 @@
 import Lottie from 'lottie-react';
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import animation from '../../assets/animation/register.json';
 import { AuthContext } from '../../provider/AuthProvider';
 import SocialLogin from './SocialLogin';
 const Register = () => {
     const { setUser, createUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState(null);
+    const location = useLocation();
     const navigate = useNavigate();
+    const from = location?.state?.from?.pathname || '/';
+
+
 
 
     
@@ -40,7 +44,7 @@ const Register = () => {
             const user = result.user;
             setUser(user);
             console.log(user);
-            navigate('/');
+            navigate(from);
         })
         .catch(error =>{
             console.log(error);

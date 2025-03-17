@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaGraduationCap, FaBriefcase, FaUtensils, FaExchangeAlt, FaUsers, FaCalendarAlt } from 'react-icons/fa';
+import TestimonialSection from './TestimonialSection';
 
 const AboutSection = () => {
     const features = [
@@ -100,7 +101,7 @@ const AboutSection = () => {
                 </div>
 
                 {/* Testimonial */}
-                <div className="bg-white p-8 md:p-12 rounded-2xl shadow-md mb-16">
+                {/* <div className="bg-white p-8 md:p-12 rounded-2xl shadow-md mb-16">
                     <div className="flex flex-col md:flex-row items-center">
                         <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gray-300 mb-6 md:mb-0 md:mr-8 flex-shrink-0 overflow-hidden">
                             <img 
@@ -117,7 +118,9 @@ const AboutSection = () => {
                             <p className="text-sm text-[#6A89A7]">Deparment of Computer Science and Engineering, 22 Series</p>
                         </div>
                     </div>
-                </div>
+                </div> */}
+
+                {/* <TestimonialSection></TestimonialSection> */}
 
                 {/* Call to Action */}
                 <div className="text-center bg-gray-900 p-10 rounded-2xl shadow-xl">
