@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const NavBar = () => {
+
+  const {user, logout} = useContext(AuthContext);
+
     return (
         <div>
             <nav className="bg-white border-gray-200 py-2.5 dark:bg-gray-900">
       <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
         <a href="#" className="flex items-center">
           <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
-            Company Logo
+            RUET Student Hub
           </span>
         </a>
         <div className="flex items-center lg:order-2">
@@ -16,10 +20,17 @@ const NavBar = () => {
             <span></span>
           </div>
 
-         <div className='flex gap-3'>
+        {
+          user ? <div className='flex gap-3 items-center'>
+            <h3 className='text-sm text-white font-semibold'>{user.email }</h3>
+            <button className='btn' onClick={logout}>Logout</button></div> 
           
-          <button className='btn'><Link to='/login'>Login</Link></button>
-         <button className='btn'><Link to='/register'>Register</Link></button></div>
+          : <div className='flex gap-3'>
+         
+          <Link to='/login'><button className="btn">Login</button></Link>
+          <Link to='/register'><button className="btn">Register</button></Link>
+        </div>
+        }
           <button
             data-collapse-toggle="mobile-menu-2"
             type="button"
