@@ -80,8 +80,8 @@ const AboutSection = () => {
                         <p className="text-[#6A89A7]">Monthly Exchanges</p>
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">50+</p>
-                        <p className="text-[#6A89A7]">Universities</p>
+                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">500+</p>
+                        <p className="text-[#6A89A7]">Tuitions</p>
                     </div>
                 </div>
 

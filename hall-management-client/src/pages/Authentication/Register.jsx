@@ -3,9 +3,9 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import animation from '../../assets/animation/register.json';
 import { AuthContext } from '../../provider/AuthProvider';
-
+import SocialLogin from './SocialLogin';
 const Register = () => {
-    const {RegisterWithGoogle, setUser, createUser} = useContext(AuthContext);
+    const { setUser, createUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
 
@@ -13,21 +13,6 @@ const Register = () => {
     
    
 
-    const handleGoogle = () =>{
-        RegisterWithGoogle()
-        .then(result =>{
-            const user = result.user;
-           setUser(user);
-           navigate('/');
-           
-        })
-        .catch(error =>{
-           
-               
-             console.log(error)
-             
-         })
-    }
 
     
     const handleSignUp = (event) => {
@@ -141,22 +126,16 @@ const Register = () => {
                                 Password
                             </label>
                         </div>
-                        <div className="my-6 space-y-4">
+                        <div className="my-6 ">
                             <button
                                 type="submit"
                                 className="w-full font-bold rounded-md bg-[#384959] px-3 py-4 text-white focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity"
                             >
                                 Register
                             </button>
-                            <button onClick={handleGoogle} className="w-full font-bold rounded-md flex gap-3 justify-center items-center bg-[#f0f4f7] px-3 py-4  focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity">
-        <img
-            className="w-6 h-6"
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            loading="lazy"
-            alt="Google logo"
-        />
-        <span>Login with Google</span>
-    </button>
+                            <div className="divider">OR</div>
+                            <SocialLogin></SocialLogin>
+                           
                         </div>
                         <p className="text-center text-sm text-gray-500">
                             Already have an account?{' '}

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
+import SocialLogin from './SocialLogin';
 
 
 
@@ -86,13 +87,16 @@ const Login = () => {
                         Password
                     </label>
                 </div>
-                <div className="my-6">
+                <div className="my-6 ">
                 <button
                                 type="submit"
-                                className="w-full font-bold rounded-md bg-[#384959] px-3 py-4 text-white focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity"
+                                className="w-full font-bold rounded-md bg-[#384959] px-3 py-4 text-white focus:bg-gray-600 focus:outline-none hover:opacity-90 transition-opacity "
                             >
                                 Login
                             </button>
+                            <div className="divider">OR</div>
+
+                            <SocialLogin></SocialLogin>
                 </div>
                
             </form>
