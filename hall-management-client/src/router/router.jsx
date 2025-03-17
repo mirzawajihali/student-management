@@ -9,6 +9,8 @@ import Login from "../pages/Authentication/Login";
 import Jobs from "../pages/Jobs/Jobs";
 import JobDetails from "../pages/Jobs/JobDetails";
 import PrivateRouter from "./PrivateRouter";
+import Token from "../tokens/Token";
+import ErrorSection from "../pages/Common/ErrorSection";
 
 
   const router = createBrowserRouter([
@@ -21,13 +23,21 @@ import PrivateRouter from "./PrivateRouter";
             element:<Home></Home>
         },
         {
+          path:"*",
+          element:<ErrorSection></ErrorSection>
+        },  
+        {
             path:"/register",
             element:<Register></Register>
         },
-        {
-            path:"/login",
-            element:<Login></Login>
-        },
+          {
+              path:"/login",
+              element:<Login></Login>
+          },
+          {
+            path:"/token",
+            element:<Token></Token>
+          },
         {
             path:"/jobs",
             element:<Jobs></Jobs>
@@ -36,9 +46,11 @@ import PrivateRouter from "./PrivateRouter";
             path:"/jobs/:id",
             element:<PrivateRouter><JobDetails></JobDetails></PrivateRouter>,
             loader:({params})=>fetch(`http://localhost:5000/jobs/${params.id}`)
-        }
+        },
+        
+   
       ]
-    },
+    }
   ]);
 
   export default router;

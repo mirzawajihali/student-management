@@ -28,7 +28,7 @@ const NavBar = () => {
 
         {
           user ? <div className='flex gap-3 items-center'>
-            <h3 className='text-sm text-white font-semibold'>{user.email }</h3>
+            <h3 className='text-sm text-white font-semibold'>{user.displayName || user.email }</h3>
             <button className='btn' onClick={logout}>Logout</button></div> 
           
           : <div className='flex gap-3'>
@@ -99,6 +99,17 @@ const NavBar = () => {
             }
           >
             Jobs
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/token"
+            className={ ({ isActive }) =>
+              isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '
+            
+            }
+          >
+            Token
           </NavLink>
         </li>
         <li>
