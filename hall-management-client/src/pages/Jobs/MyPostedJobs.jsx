@@ -3,7 +3,7 @@ import useAuth from '../../hooks/useAuth';
 import JobCard from './JobCard';
 import { Link } from 'react-router-dom';
 import { MdDelete } from 'react-icons/md';
-import { FaEdit } from 'react-icons/fa';
+import { FaEdit, FaEye } from 'react-icons/fa';
 import { TbListDetails } from 'react-icons/tb';
 
 const MyPostedJobs = () => {
@@ -33,7 +33,9 @@ const MyPostedJobs = () => {
         <th>Salary</th>
         <th>Status</th>
         <th>Deadline</th>
+        <th>Applications</th>
         <th>Action</th>
+
       </tr>
     </thead>
     <tbody>
@@ -63,6 +65,8 @@ const MyPostedJobs = () => {
                     </td>
                     <td>No Application Yet</td>
                     <td>{job.applicationDeadline}</td>
+                    <td className=' '> <Link to={`/viewApplications/${job._id}`}><button className='btn flex gap-3'> {job.applicationCount}    . View  <FaEye /></button></Link></td>
+                  
                     <th className='flex gap-2'>
                       <Link to={`/jobs/${job._id}`}><button className="btn text-blue-500 "><TbListDetails /></button></Link>
                       <button className="btn text-green-600 "><FaEdit /></button>
