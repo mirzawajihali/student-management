@@ -103,6 +103,39 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink
+            to="/addJob"
+            className={ ({ isActive }) =>
+              isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '
+            
+            }
+          >
+            Add Job
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/myPostedJobs"
+            className={ ({ isActive }) =>
+              isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '
+            
+            }
+          >
+            My Posted Jobs
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/myApplications"
+            className={ ({ isActive }) =>
+              isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '
+            
+            }
+          >
+            My Applications
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to="/token"
             className={ ({ isActive }) =>
               isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '

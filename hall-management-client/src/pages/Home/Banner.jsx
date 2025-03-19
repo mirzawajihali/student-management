@@ -6,6 +6,9 @@ import { motion } from "framer-motion";
 import { Link } from 'react-router-dom';
 
 
+
+
+
 const Banner = () => {
     return (
         <div className=" flex justify-center items-center lg:p-20 bg-base-200">

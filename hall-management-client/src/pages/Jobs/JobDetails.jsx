@@ -80,7 +80,7 @@ const JobDetails = () => {
         imageHeight: 200,
         imageAlt: "Custom image"
       });
-       navigate('/');
+       navigate('/myApplications');
      }
     })
   }
