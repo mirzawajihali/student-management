@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import animation from '../../assets/animation/register.json';
 import { AuthContext } from '../../provider/AuthProvider';
 import SocialLogin from './SocialLogin';
+import axios from 'axios';
 const Register = () => {
     const { setUser, createUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState(null);
@@ -43,8 +44,12 @@ const Register = () => {
         .then(result =>{
             const user = result.user;
             setUser(user);
-            console.log(user);
-            navigate(from);
+            const userData ={
+                email : email
+            }
+           axios.post('http://localhost:5000/jwt', userData)
+           .then(res => console.log(res.data))
+            // navigate(from);
         })
         .catch(error =>{
             console.log(error);
