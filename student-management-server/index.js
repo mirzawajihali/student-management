@@ -1,13 +1,48 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.PORT || 5000;
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 require('dotenv').config();
 
+// Middleware
+app.use(cors({
+  origin: 'http://localhost:5173', // Vite's default port
+  credentials: true
+}));
+app.use(express.json());
+app.use(cookieParser());
 
 
+const logger = (req, res, next) => {
+  console.log('inside the logger');
+  next();
+}
+
+// Verify token middleware
+const verifyToken = (req, res, next) => {
+  console.log('inside verify token');
+  console.log('cookies:', req.cookies);
+  
+  // Look for the specific token cookie, not username-localhost cookies
+  const token = req.cookies.token;
+  console.log('token:', token);
+
+  if(!token){ 
+    return res.status(401).send({message: 'Unauthorized access: No token provided'});
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if(err){
+      return res.status(403).send({message: 'Forbidden: Invalid token'});
+    }
+    req.user = decoded;
+    next();
+  })
+}
 
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.sk4ge.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -20,20 +55,28 @@ const client = new MongoClient(uri, {
 });
 async function run() {
   try {
-
-
-
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
-
-
     // jobs related apis 
     const jobsCollection = client.db('studentManagement').collection('jobs');
     const jobApplicationsCollection = client.db('studentManagement').collection('jobApplications');
+    // token related apis
+    const tokenCollection = client.db('studentManagement').collection('tokens');
+
+    app.post('/jwt', async(req, res)=>{
+      const user = req.body;
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1h'});
+      res
+      .cookie('token', token, {
+        httpOnly: true,
+        secure:false,
+      })
+      .send({success: true});
+    })
 
     app.get("/jobs", async(req, res)=>{
       const email = req.query.email;
@@ -59,9 +102,14 @@ async function run() {
         res.send(job);
     })
 
-    app.get('/job-applications', async(req, res)=>{
+    app.get('/job-applications', verifyToken,  async(req, res)=>{
         const email = req.query.email;
         const query = {email: email};
+
+        if(req.user.email !== email){
+          return res.status(403).send({message: 'Forbidden: You are not authorized to access this resource'});
+        }
+       
         const result =await jobApplicationsCollection.find(query).toArray() ;
 
         for(const application of result){
@@ -115,7 +163,7 @@ async function run() {
 
     // changing the status  
 
-    
+
     app.patch('/job-applications/:id', async(req, res)=>{
       const id = req.params.id;
       const updateData = req.body;
@@ -127,15 +175,88 @@ async function run() {
       res.send(result);
     })
 
+    // Token related APIs
+
+    // Get all tokens
+    app.get('/tokens', async(req, res) => {
+      try {
+        const tokens = await tokenCollection.find().toArray();
+        res.send(tokens);
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    });
+
+    // Get token by ID
+    app.get('/tokens/:id', async(req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const token = await tokenCollection.findOne(query);
+        
+        if (!token) {
+          return res.status(404).send({ message: 'Token not found' });
+        }
+        
+        res.send(token);
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    });
+
+    // Create a new token
+    app.post('/tokens', async(req, res) => {
+      try {
+        const newToken = req.body;
+        const result = await tokenCollection.insertOne(newToken);
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    });
+
+    // Update a token (e.g., mark as sold)
+    app.patch('/tokens/:id', async(req, res) => {
+      try {
+        const id = req.params.id;
+        const updateData = req.body;
+        const filter = { _id: new ObjectId(id) };
+        const updateDoc = { $set: updateData };
+        const result = await tokenCollection.updateOne(filter, updateDoc);
+        
+        if (result.matchedCount === 0) {
+          return res.status(404).send({ message: 'Token not found' });
+        }
+        
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    });
+
+    // Delete a token
+    app.delete('/tokens/:id', async(req, res) => {
+      try {
+        const id = req.params.id;
+        const query = { _id: new ObjectId(id) };
+        const result = await tokenCollection.deleteOne(query);
+        
+        if (result.deletedCount === 0) {
+          return res.status(404).send({ message: 'Token not found' });
+        }
+        
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: error.message });
+      }
+    });
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
   }
 }
 run().catch(console.dir);
-
-app.use(cors());
-app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Student Management System');

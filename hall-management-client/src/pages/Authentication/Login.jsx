@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 import SocialLogin from './SocialLogin';
+import axios from 'axios';
 
 
 
@@ -28,19 +29,12 @@ const Login = () => {
                     const lastSignInTime = result.user?.metadata?.lastSignInTime
                     const loginInfo ={email, lastSignInTime}
                     navigate(from );
-                    // fetch(`https://coffee-store-server-one-rho.vercel.app/users`, {
-                    //     method : 'PATCH'  ,
-                    //     headers :{
-                    //         'content-type' : 'application/json'
-                    //     },
-                    //     body : JSON.stringify(loginInfo)
-                    //                 })
-                    // .then(res => res.json())
-                    // .then(data => {
-                    //     console.log(data)
-                    //     form.reset();
-                    //     navigate(location?.state ? location.state : '/' );
-                    // })
+                   
+                    const userData ={
+                        email : user.email
+                    }
+                   axios.post('http://localhost:5000/jwt', userData, {withCredentials: true})
+                   .then(res =>console.log(res.data))
                     
             })
             .catch(error =>{
