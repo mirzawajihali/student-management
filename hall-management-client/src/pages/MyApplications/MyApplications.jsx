@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import axios from 'axios';
+
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const MyApplications = () => {
 
     const {user} = useAuth();
     const [applications, setApplications] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(()=>{
-        // fetch(`http://localhost:5000/job-applications?email=${user.email}`)
+        // fetch(`https://student-management-server-mu.vercel.app/job-applications?email=${user.email}`)
         // .then(res=>res.json())
         // .then(data=>setApplications(data))
 
-        axios.get(`http://localhost:5000/job-applications?email=${user.email}`, {withCredentials: true})
-        .then(res => setApplications(res.data))
+        // axios.get(`https://student-management-server-mu.vercel.app/job-applications?email=${user.email}`, {withCredentials: true})
+        // .then(res => setApplications(res.data))
+
+
+        axiosSecure.get(`/job-applications?email=${user.email}`)
+        .then(res => setApplications(res.data));
+
     },[user.email])
     return (
 <div className=' mb-40 lg:max-w-7xl mx-auto'>
@@ -37,7 +44,7 @@ const MyApplications = () => {
      {
         applications.map(application =>{
             return(
-                <tr>
+                <tr key={application._id}>
         <th>1</th>
         <td>{application.company}</td>
         <td>{application.title}</td>

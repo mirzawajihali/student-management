@@ -58,6 +58,9 @@ const Footer = () => {
                             <li>
                                 <Link to="/marketplace" className="hover:text-[#384959] transition-colors duration-300">Marketplace</Link>
                             </li>
+                            <li>
+                                <Link to="/developer" className="hover:text-[#384959] transition-colors duration-300">Developer</Link>
+                            </li>
                         </ul>
                     </div>
 

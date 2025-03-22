@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../firebase/firebase.init';
+import axios from 'axios';
 
 
 
@@ -46,7 +47,26 @@ const AuthProvider = ({children}) => {
   useEffect(() => {
     const unsubscribed = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
+      
+      if(currentUser?.email){
+        const user ={
+          email : currentUser.email
+      }
+      axios.post('https://student-management-server-mu.vercel.app/jwt', user, {withCredentials: true})
+      .then(res =>{console.log(res.data)
+        setLoading(false);
+      })
+      }
+
+      else{
+        axios.post('https://student-management-server-mu.vercel.app/logout', {}, {withCredentials: true})
+        .then(res =>{
+          setLoading(false);
+          console.log('logged out', res.data)
+        })
+      }
+   
+  
     });
 
     return () => {

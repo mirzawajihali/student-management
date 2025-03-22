@@ -17,11 +17,7 @@ const SocialLogin = () => {
             const user = result.user;
            setUser(user);
 
-           const userData ={
-            email : user.email
-        }
-       axios.post('http://localhost:5000/jwt', userData, {withCredentials: true})
-       .then(res =>console.log(res.data))
+          
             navigate(from);
            
         })

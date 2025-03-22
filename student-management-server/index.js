@@ -10,7 +10,7 @@ require('dotenv').config();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite's default port
+  origin:[ 'http://localhost:5173', 'https://student-management-250a8.web.app', "https://student-management-250a8.firebaseapp.com"], // Vite's default port
   credentials: true
 }));
 app.use(express.json());
@@ -56,10 +56,10 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+    // await client.db("admin").command({ ping: 1 });
+    // console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
     // jobs related apis 
     const jobsCollection = client.db('studentManagement').collection('jobs');
@@ -73,9 +73,21 @@ async function run() {
       res
       .cookie('token', token, {
         httpOnly: true,
-        secure:false,
+        secure:process.env.NODE_ENV === 'production',
+        sameSite:process.env.NODE_ENV === 'production' ? 'none' : 'strict',
       })
       .send({success: true});
+    })
+
+    app.post('/logout', async(req, res)=>{
+      res.clearCookie('token', {
+        httpOnly: true,
+        secure: false,
+        secure:process.env.NODE_ENV === 'production',
+        sameSite:process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+
+      });
+      res.send({success: true});
     })
 
     app.get("/jobs", async(req, res)=>{

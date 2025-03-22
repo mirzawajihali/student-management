@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaGraduationCap, FaBriefcase, FaUtensils, FaExchangeAlt, FaUsers, FaCalendarAlt } from 'react-icons/fa';
 import TestimonialSection from './TestimonialSection';
+import { motion } from 'framer-motion';
 
 const AboutSection = () => {
     const features = [
@@ -48,100 +49,241 @@ const AboutSection = () => {
         return gradients[index % gradients.length];
     };
 
+    // Animation variants
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { y: 20, opacity: 0 },
+        visible: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                stiffness: 100,
+                damping: 10
+            }
+        }
+    };
+
+    const statVariants = {
+        hidden: { scale: 0.8, opacity: 0 },
+        visible: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                type: 'spring',
+                stiffness: 80,
+                damping: 10
+            }
+        }
+    };
+
     return (
-        <section className="py-20 px-4 bg-gradient-to-b from-white to-[#BDDDFC] overflow-hidden">
-            <div className="max-w-7xl mx-auto">
-                {/* Section Header with Animation */}
-                <div className="text-center mb-20 relative">
-                    <div className="absolute inset-0 flex items-center justify-center opacity-5">
-                        <FaGraduationCap className="text-[400px] text-[#384959]" />
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-bold text-[#384959] mb-4 relative">
-                        Your Complete Student Resource Hub
-                    </h2>
-                    <div className="w-24 h-1 bg-[#88BDF2] mx-auto mb-6"></div>
-                    <p className="text-lg md:text-xl text-[#6A89A7] max-w-3xl mx-auto relative">
-                        We're dedicated to enhancing your student experience by connecting you with opportunities 
-                        for income, resources, and community engagement all in one place.
-                    </p>
-                </div>
-
-                {/* Stats Section */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-                    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">5000+</p>
-                        <p className="text-[#6A89A7]">Active Students</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">200+</p>
-                        <p className="text-[#6A89A7]">Partner Companies</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">1500+</p>
-                        <p className="text-[#6A89A7]">Monthly Exchanges</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md text-center">
-                        <p className="text-3xl md:text-4xl font-bold text-[#88BDF2]">500+</p>
-                        <p className="text-[#6A89A7]">Tuitions</p>
-                    </div>
-                </div>
-
-                {/* Main Features */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                    {features.map((feature, index) => (
-                        <div 
-                            key={index} 
-                            className={`group bg-white hover:bg-gradient-to-br ${getGradientClass(index)} p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center hover:transform hover:-translate-y-2 hover:text-white`}
+        <>
+            <section className="py-20 px-4 bg-gradient-to-b from-white to-[#BDDDFC] overflow-hidden">
+                <div className="max-w-7xl mx-auto">
+                    {/* Section Header with Animation */}
+                    <motion.div 
+                        className="text-center mb-20 relative"
+                        initial={{ opacity: 0, y: -20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <motion.div 
+                            className="absolute inset-0 flex items-center justify-center opacity-5"
+                            initial={{ scale: 0 }}
+                            whileInView={{ scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 1.5, delay: 0.2 }}
                         >
-                            {feature.icon}
-                            <h3 className="text-xl font-semibold text-[#384959] group-hover:text-white mb-3 transition-colors duration-300">{feature.title}</h3>
-                            <p className="text-[#6A89A7] group-hover:text-white transition-colors duration-300">{feature.description}</p>
-                        </div>
-                    ))}
+                            <FaGraduationCap className="text-[400px] text-[#384959]" />
+                        </motion.div>
+                        <motion.h2 
+                            className="text-3xl md:text-5xl font-bold text-[#384959] mb-4 relative"
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                        >
+                            Your Complete Student Resource Hub
+                        </motion.h2>
+                        <motion.div 
+                            className="w-24 h-1 bg-[#88BDF2] mx-auto mb-6"
+                            initial={{ width: 0 }}
+                            whileInView={{ width: 96 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                        ></motion.div>
+                        <motion.p 
+                            className="text-lg md:text-xl text-[#6A89A7] max-w-3xl mx-auto relative"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                        >
+                            We're dedicated to enhancing your student experience by connecting you with opportunities 
+                            for income, resources, and community engagement all in one place.
+                        </motion.p>
+                    </motion.div>
+
+                    {/* Stats Section */}
+                    <motion.div 
+                        className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20"
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        <motion.div 
+                            className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300"
+                            variants={statVariants}
+                            whileHover={{ y: -5 }}
+                        >
+                            <motion.p 
+                                className="text-3xl md:text-4xl font-bold text-[#88BDF2]"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1 }}
+                            >
+                                5000+
+                            </motion.p>
+                            <p className="text-[#6A89A7]">Active Students</p>
+                        </motion.div>
+                        <motion.div 
+                            className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300"
+                            variants={statVariants}
+                            whileHover={{ y: -5 }}
+                        >
+                            <motion.p 
+                                className="text-3xl md:text-4xl font-bold text-[#88BDF2]"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1, delay: 0.2 }}
+                            >
+                                200+
+                            </motion.p>
+                            <p className="text-[#6A89A7]">Partner Companies</p>
+                        </motion.div>
+                        <motion.div 
+                            className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300"
+                            variants={statVariants}
+                            whileHover={{ y: -5 }}
+                        >
+                            <motion.p 
+                                className="text-3xl md:text-4xl font-bold text-[#88BDF2]"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1, delay: 0.4 }}
+                            >
+                                1500+
+                            </motion.p>
+                            <p className="text-[#6A89A7]">Monthly Exchanges</p>
+                        </motion.div>
+                        <motion.div 
+                            className="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-xl transition-shadow duration-300"
+                            variants={statVariants}
+                            whileHover={{ y: -5 }}
+                        >
+                            <motion.p 
+                                className="text-3xl md:text-4xl font-bold text-[#88BDF2]"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 1, delay: 0.6 }}
+                            >
+                                500+
+                            </motion.p>
+                            <p className="text-[#6A89A7]">Tuitions</p>
+                        </motion.div>
+                    </motion.div>
+
+                    {/* Main Features */}
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        {features.map((feature, index) => (
+                            <motion.div 
+                                key={index} 
+                                className={`group bg-white hover:bg-gradient-to-br ${getGradientClass(index)} p-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center hover:transform hover:-translate-y-2 hover:text-white`}
+                                variants={itemVariants}
+                                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                            >
+                                {feature.icon}
+                                <h3 className="text-xl font-semibold text-[#384959] group-hover:text-white mb-3 transition-colors duration-300">{feature.title}</h3>
+                                <p className="text-[#6A89A7] group-hover:text-white transition-colors duration-300">{feature.description}</p>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    {/* Call to Action */}
+                    <motion.div 
+                        className="text-center bg-gray-900 p-10 rounded-2xl shadow-xl"
+                        initial={{ opacity: 0, y: 50 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <motion.h3 
+                            className="text-2xl md:text-3xl font-bold text-white mb-6"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 }}
+                        >
+                            Ready to Maximize Your Student Experience?
+                        </motion.h3>
+                        <motion.p 
+                            className="text-lg text-[#BDDDFC] mb-8 max-w-2xl mx-auto"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.4 }}
+                        >
+                            Join thousands of students who are already benefiting from our platform.
+                            Create your account today and start exploring all the opportunities available to you.
+                        </motion.p>
+                        <motion.div 
+                            className="flex flex-col sm:flex-row justify-center gap-4"
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.6 }}
+                        >
+                            <motion.button
+                                className="bg-white text-[#384959] hover:bg-[#BDDDFC] hover:text-[#384959] font-medium py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                Sign Up Now
+                            </motion.button>
+                            <motion.button
+                                className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 px-8 rounded-full transition-colors duration-300"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.98 }}
+                            >
+                                Learn More
+                            </motion.button>
+                        </motion.div>
+                    </motion.div>
                 </div>
-
-                {/* Testimonial */}
-                {/* <div className="bg-white p-8 md:p-12 rounded-2xl shadow-md mb-16">
-                    <div className="flex flex-col md:flex-row items-center">
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gray-300 mb-6 md:mb-0 md:mr-8 flex-shrink-0 overflow-hidden">
-                            <img 
-                                src="https://avatars.githubusercontent.com/u/159119082?v=4" 
-                                alt="Student testimonial" 
-                                className="w-full h-full object-cover"
-                            />
-                        </div>
-                        <div>
-                            <p className="text-lg md:text-xl text-[#384959] italic mb-4">
-                                "This platform has completely transformed my college experience. I found a part-time tutoring job that pays well and fits perfectly with my class schedule. I've also saved hundreds of dollars buying second-hand textbooks from other students!"
-                            </p>
-                            <p className="font-semibold text-[#384959]">Suhail Ahmed Toha</p>
-                            <p className="text-sm text-[#6A89A7]">Deparment of Computer Science and Engineering, 22 Series</p>
-                        </div>
-                    </div>
-                </div> */}
-
-                {/* <TestimonialSection></TestimonialSection> */}
-
-                {/* Call to Action */}
-                <div className="text-center bg-gray-900 p-10 rounded-2xl shadow-xl">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
-                        Ready to Maximize Your Student Experience?
-                    </h3>
-                    <p className="text-lg text-[#BDDDFC] mb-8 max-w-2xl mx-auto">
-                        Join thousands of students who are already benefiting from our platform.
-                        Create your account today and start exploring all the opportunities available to you.
-                    </p>
-                    <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <button className="bg-white text-[#384959] hover:bg-[#BDDDFC] hover:text-[#384959] font-medium py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
-                            Sign Up Now
-                        </button>
-                        <button className="bg-transparent border-2 border-white text-white hover:bg-white/10 font-medium py-3 px-8 rounded-full transition-colors duration-300">
-                            Learn More
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+            
+            {/* Testimonials Section */}
+            <TestimonialSection />
+        </>
     );
 };
 

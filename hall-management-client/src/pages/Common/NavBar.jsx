@@ -147,6 +147,17 @@ const NavBar = () => {
         </li>
         <li>
           <NavLink
+            to="/developer"
+            className={ ({ isActive }) =>
+              isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '
+            
+            }
+          >
+            Developer
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
             to="/contact"
             className={ ({ isActive }) =>
               isActive ? 'block py-2 pl-3 pr-4 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 ' : 'block py-2 pl-3 pr-4 text-white border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-purple-700 lg:p-0 '

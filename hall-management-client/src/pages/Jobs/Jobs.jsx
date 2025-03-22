@@ -4,7 +4,7 @@ import JobCard from './JobCard';
 const Jobs = () => {
     const [jobs, setJobs]= useState([]);
     useEffect(() =>{
-        fetch('http://localhost:5000/jobs')
+        fetch('https://student-management-server-mu.vercel.app/jobs')
         .then(res => res.json())
         .then(data => setJobs(data))
     },[])
