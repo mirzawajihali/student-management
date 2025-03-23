@@ -214,7 +214,7 @@ const Developer = () => {
                             </div>
                             <div className="border-l-2 border-[#88BDF2] pl-4">
                                 <p className="text-[#384959] font-semibold">Higher Secondary Certificate</p>
-                                <p className="text-[#6A89A7]">Notre Dame College</p>
+                                <p className="text-[#6A89A7]"></p>
                                 <p className="text-[#6A89A7]">2018 - 2020</p>
                             </div>
                         </motion.div>
