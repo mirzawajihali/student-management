@@ -16,12 +16,12 @@ const AddJob = () => {
         // console.log(initialData)
         const { min, max, currency, ...newJob } = initialData;
         console.log(min, max, currency, newJob)
-        newJob.salaryRange = { min, max, currency }
+        newJob.salaryRange = { min : parseInt(min), max : parseInt(max), currency }
         newJob.requirements = newJob.requirements.split('\n');
         newJob.responsibilities = newJob.responsibilities.split('\n')
         console.log(newJob);
 
-        fetch('https://student-management-server-mu.vercel.app/jobs', {
+        fetch('http://localhost:5000/jobs', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -111,7 +111,7 @@ const AddJob = () => {
                 Salary Range
               </label>
               <input
-                type="text"
+                type="number"
                 name="min"
                 placeholder="Min"
                 className="input input-bordered w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
@@ -120,7 +120,7 @@ const AddJob = () => {
             </div>
             <div className="form-control">
               <input
-                type="text"
+                type="number"
                 name="max"
                 placeholder="Max"
                 className="input input-bordered w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent transition-all"
@@ -212,6 +212,7 @@ const AddJob = () => {
             </label>
             <input
               type="text"
+              readOnly
               defaultValue={user?.email}
               name="hr_email"
               placeholder="HR Email"

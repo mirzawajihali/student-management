@@ -61,7 +61,7 @@ const JobDetails = () => {
       roll,
     }
 
-    fetch('https://student-management-server-mu.vercel.app/job-applications', {
+    fetch('http://localhost:5000/job-applications', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

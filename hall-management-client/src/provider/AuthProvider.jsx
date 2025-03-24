@@ -52,14 +52,14 @@ const AuthProvider = ({children}) => {
         const user ={
           email : currentUser.email
       }
-      axios.post('https://student-management-server-mu.vercel.app/jwt', user, {withCredentials: true})
+      axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
       .then(res =>{console.log(res.data)
         setLoading(false);
       })
       }
 
       else{
-        axios.post('https://student-management-server-mu.vercel.app/logout', {}, {withCredentials: true})
+        axios.post('http://localhost:5000/logout', {}, {withCredentials: true})
         .then(res =>{
           setLoading(false);
           console.log('logged out', res.data)

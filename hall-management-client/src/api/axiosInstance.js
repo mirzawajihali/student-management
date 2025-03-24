@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create a new axios instance with a base URL
 const axiosInstance = axios.create({
-  baseURL: 'https://student-management-server-mu.vercel.app',
+  baseURL: 'http://localhost:5000',
   timeout: 5000,
   withCredentials: true,
   headers: {
