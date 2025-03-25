@@ -10,11 +10,11 @@ const MyApplications = () => {
     const axiosSecure = useAxiosSecure();
 
     useEffect(()=>{
-        // fetch(`http://localhost:5000/job-applications?email=${user.email}`)
+        // fetch(`https://student-management-server-mu.vercel.app/job-applications?email=${user.email}`)
         // .then(res=>res.json())
         // .then(data=>setApplications(data))
 
-        // axios.get(`http://localhost:5000/job-applications?email=${user.email}`, {withCredentials: true})
+        // axios.get(`https://student-management-server-mu.vercel.app/job-applications?email=${user.email}`, {withCredentials: true})
         // .then(res => setApplications(res.data))
 
 

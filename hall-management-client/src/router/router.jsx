@@ -16,6 +16,7 @@ import AddJob from "../pages/Jobs/AddJob";
 import MyPostedJobs from "../pages/Jobs/MyPostedJobs";
 import ViewApplications from "../pages/Jobs/ViewApplications";
 import Developer from "../pages/Developer";
+import ContactUs from "../pages/Common/ContactUs";
 
   const router = createBrowserRouter([
     {
@@ -49,7 +50,7 @@ import Developer from "../pages/Developer";
         {
             path:"/jobs/:id",
             element:<PrivateRouter><JobDetails></JobDetails></PrivateRouter>,
-            loader:({params})=>fetch(`http://localhost:5000/jobs/${params.id}`)
+            loader:({params})=>fetch(`https://student-management-server-mu.vercel.app/jobs/${params.id}`)
         },
         {
             path:"/myApplications",
@@ -66,11 +67,15 @@ import Developer from "../pages/Developer";
           {
             path:"/viewApplications/:jobId",
             element:<PrivateRouter><ViewApplications></ViewApplications></PrivateRouter>,
-            loader:({params})=>fetch(`http://localhost:5000/job-applications/jobs/${params.jobId}`)
+            loader:({params})=>fetch(`https://student-management-server-mu.vercel.app/job-applications/jobs/${params.jobId}`)
           },
           {
             path:"/developer",
             element:<Developer></Developer>
+          },
+          {
+            path:"/contact",
+            element:<ContactUs></ContactUs>
           },
       ]
     }
